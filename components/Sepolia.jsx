@@ -5,6 +5,7 @@ import { receiverAbi, contractAddress } from "./constants";
 import AlertSnackbar from './AlertSnackbar';
 import TransactionModal from './TransactionModal';
 import { ethers } from 'ethers';
+import Footer from './Footer'; // Adjust path accordingly
 
 const Sepolia = () => {
     const [data, setData] = useState([]);
@@ -68,12 +69,13 @@ const Sepolia = () => {
             console.log("API call result:", rawData);
             const rankedData = calculateRanks(rawData);
             console.log(rawData)
+
             setData(prevData => {
-                const existingNames = new Set(prevData.map(item => item.name));
-                const newData = rankedData.filter(item => !existingNames.has(item.name));
+                const existingNameAmountCombinations = new Set(prevData.map(item => `${item.name}-${item.amount}`));
+                const newData = rankedData.filter(item => !existingNameAmountCombinations.has(`${item.name}-${item.amount}`));
                 const updatedData = [...prevData, ...newData];
                 
-                localStorage.setItem('persistedData', JSON.stringify(updatedData));
+                localStorage.setItem('persistedDataNew', JSON.stringify(updatedData));
                 return updatedData;
             });
 
@@ -85,7 +87,7 @@ const Sepolia = () => {
 
     useEffect(() => {
         // Load data from localStorage when the component mounts
-        const persistedData = localStorage.getItem('persistedData');
+        const persistedData = localStorage.getItem('persistedDataNew');
         if (persistedData) {
             setData(JSON.parse(persistedData));
         }
@@ -101,6 +103,7 @@ const Sepolia = () => {
     
 
     return (
+        <div>
         <div className={styles.container}>
             <h1 className={styles.spacing}>Chainlink CCIP Finale: The Trio's Mighty Total</h1>
             <DataTable data={data} columns={columns} className={styles.table} />
@@ -110,6 +113,38 @@ const Sepolia = () => {
             <AlertSnackbar />
             <TransactionModal />
         </div>
+        <div className={styles.footerSteps}>
+                <div className={styles.footerContent}>
+                    <div className={styles.tier}>
+                        <strong className={styles.tierLabel}>Tier 1 :</strong>
+                        <span className={styles.prize}>Long sleeve TShirt</span>
+                        <span className={styles.icon}>🏆</span>
+                        <span className={styles.winners}>100 Winners</span>
+                    </div>
+
+                    <div className={styles.separator}>|</div>
+
+                    <div className={styles.tier}>
+                        <strong className={styles.tierLabel}>Tier 2 :</strong>
+                        <span className={styles.prize}>TShirt</span>
+                        <span className={styles.icon}>👕</span>
+                        <span className={styles.winners}>200 Winners</span>
+                    </div>
+
+                    <div className={styles.separator}>|</div>
+
+                    <div className={styles.tier}>
+                        <strong className={styles.tierLabel}>Tier 3 :</strong>
+                        <span className={styles.prize}>Accessories</span>
+                        <span className={styles.icon}>🎒</span>
+                        <span className={styles.winners}>300 Winners</span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    
     );
 };
 

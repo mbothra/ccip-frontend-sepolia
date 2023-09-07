@@ -58,3 +58,47 @@
     text-align: center;
     
 }
+
+/* ... Other styles ... */
+
+.footerSteps {
+    padding: 20px;
+    background: linear-gradient(135deg, #375bd2, #2b44a9);
+    color: #ecf0f1;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1); /* Optional: for shadow */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.footerContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px; /* Adjust this to change the max width */
+    margin: 0 auto;
+    width: 95%;
+}
+
+.tier {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: space-evenly; /* Distribute the space between elements */
+}
+
+.tierLabel, .prize, .winners {
+    margin: 0 10px; /* Horizontal space */
+    color: white;
+}
+
+.icon {
+    font-size: 24px; /* Adjust the size of the emoji */
+}
+
+.separator {
+    color: #fff;
+    opacity: 0.7;
+    margin: 0 20px; /* Horizontal space between tiers */
+}
