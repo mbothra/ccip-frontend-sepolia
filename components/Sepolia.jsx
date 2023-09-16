@@ -7,6 +7,50 @@ import TransactionModal from './TransactionModal';
 import { ethers } from 'ethers';
 import Footer from './Footer'; // Adjust path accordingly
 
+const CircleNumber = ({ number, text, subtext }) => {
+    const circleStyle = {
+      width: '40px',
+      height: '40px',
+      borderRadius: '50%',
+      backgroundColor: '#375bd2',
+      color: 'white',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: '8px',  // Adjusted spacing between the circle and the text
+      fontWeight:'700',
+      fontSize:'1.2em'
+    };
+  
+    const textStyle = {
+      maxWidth: '240px',
+      overflowWrap: 'break-word',
+      wordWrap: 'break-word',
+      color:'black',
+      textAlign: 'center',
+      marginBottom: '8px'  // Spacing between the text and the subtext
+    };
+
+    const subtextStyle = {
+      maxWidth: '240px',
+      overflowWrap: 'break-word',
+      wordWrap: 'break-word',
+      color:'gray',
+      fontSize: '12px',   // Smaller font size for subtext
+      textAlign: 'center'
+    };
+  
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 50px' }}>
+        <div style={circleStyle}>{number}</div>
+        <div style={textStyle}>{text}</div>
+        <div style={subtextStyle}>{subtext}</div>
+      </div>
+    );
+};
+
+
+
 const Sepolia = () => {
     const [data, setData] = useState([]);
     const infuraRpcUrl = 'https://sepolia.infura.io/v3/84a22f268f104ea3b696699dfbc10a25'; // Replace with your Infura RPC URL
@@ -105,44 +149,29 @@ const Sepolia = () => {
     return (
         <div>
         <div className={styles.container}>
-            <h1 className={styles.spacing}>Chainlink CCIP Finale: The Trio's Mighty Total</h1>
-            <DataTable data={data} columns={columns} className={styles.table} />
-            <div className={styles.spacing}>
+
+            <h1>CCIP Leaderboard</h1>
+            <p style={{color:'black'}}>Unveil your cross-chain score and collect your prize!</p>
+
+            <div className="card" style={{display: 'flex', flexDirection: 'column', alignItems: 'center',marginBottom:'30px'}}>
+                <h4 style={{color:'black', alignContent: 'center', marginLeft:'40px', marginBottom:'20px'}}>Prize Tiers</h4>
+
+
+                <div style={{display:'flex', justifyContent: 'space-between', alignItems: 'center', width: '1086px', }}>
+                        <CircleNumber number={1} text="Long sleeve T-shirt" subtext="100 winners"/>
+                        <CircleNumber number={2} text="Regular T-shirt" subtext="200 winners"/>
+                        <CircleNumber number={3} text="Accessories" subtext="300 winners"/>
+                        </div>           
+                </div>
+
+
+             <DataTable data={data} columns={columns} className={styles.table} />
+            {/* <div className={styles.spacing}>
                 <button className={styles.button} onClick={() => getContractData()}>Refresh Data</button>
-            </div>
+            </div> */}
             <AlertSnackbar />
             <TransactionModal />
         </div>
-        <div className={styles.footerSteps}>
-                <div className={styles.footerContent}>
-                    <div className={styles.tier}>
-                        <strong className={styles.tierLabel}>Tier 1 :</strong>
-                        <span className={styles.prize}>Long sleeve TShirt</span>
-                        <span className={styles.icon}>🏆</span>
-                        <span className={styles.winners}>100 Winners</span>
-                    </div>
-
-                    <div className={styles.separator}>|</div>
-
-                    <div className={styles.tier}>
-                        <strong className={styles.tierLabel}>Tier 2 :</strong>
-                        <span className={styles.prize}>TShirt</span>
-                        <span className={styles.icon}>👕</span>
-                        <span className={styles.winners}>200 Winners</span>
-                    </div>
-
-                    <div className={styles.separator}>|</div>
-
-                    <div className={styles.tier}>
-                        <strong className={styles.tierLabel}>Tier 3 :</strong>
-                        <span className={styles.prize}>Accessories</span>
-                        <span className={styles.icon}>🎒</span>
-                        <span className={styles.winners}>300 Winners</span>
-                    </div>
-                </div>
-            </div>
-
-
         </div>
     
     );

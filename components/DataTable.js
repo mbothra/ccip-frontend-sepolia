@@ -6,62 +6,67 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { TableVirtuoso, TableComponents } from 'react-virtuoso';
-
-const VirtuosoTableComponents = {
-  Scroller: React.forwardRef((props, ref) => (
-    <TableContainer component={Paper} {...props} ref={ref} />
-  )),
-  Table: (props) => (
-    <Table {...props} sx={{ borderCollapse: 'separate', tableLayout: 'fixed' }} />
-  ),
-  TableHead,
-  TableRow: ({ item, ...props }) => <TableRow {...props} />,
-  TableBody: React.forwardRef((props, ref) => (
-    <TableBody {...props} ref={ref} />
-  )),
-};
+import TablePagination from '@mui/material/TablePagination';
 
 const DataTable = ({ data, columns, className }) => {
-  const fixedHeaderContent = () => (
-    <TableRow>
-      {columns.map((column) => (
-        <TableCell
-          key={column.dataKey}
-          variant="head"
-          align={'left'}
-          style={{ width: column.width, fontFamily: 'Montserrat', color:"#375bd2", fontWeight: 'bold'}}
-          sx={{
-            backgroundColor: 'background.paper',
-          }}
-        >
-          {column.label}
-        </TableCell>
-      ))}
-    </TableRow>
-  );
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  const rowContent = (_index, row) => (
-    <React.Fragment>
-      {columns.map((column) => (
-        <TableCell
-          key={column.dataKey}
-          align={ 'left'}
-          style={{ fontFamily: 'Montserrat' }}
-        >
-          {row[column.dataKey]}
-        </TableCell>
-      ))}
-    </React.Fragment>
-  );
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const displayedData = data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
-    <Paper style={{ height: 400, width: '100%', ...className }}>
-      <TableVirtuoso
-        data={data}
-        components={VirtuosoTableComponents}
-        fixedHeaderContent={fixedHeaderContent}
-        itemContent={rowContent}
+    <Paper style={{ width: '100%', ...className }}>
+      <TableContainer>
+        <Table sx={{ borderCollapse: 'separate', tableLayout: 'fixed' }}>
+          <TableHead>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.dataKey}
+                  variant="head"
+                  align={'left'}
+                  style={{ width: column.width, fontFamily: 'Montserrat', color:"#375bd2", fontWeight: 'bold'}}
+                  sx={{ backgroundColor: 'background.paper' }}
+                >
+                  {column.label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {displayedData.map((row) => (
+              <TableRow key={row.id || row[columns[0].dataKey]}>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.dataKey}
+                    align={'left'}
+                    style={{ fontFamily: 'Montserrat' }}
+                  >
+                    {row[column.dataKey]}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        component="div"
+        count={data.length}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        rowsPerPageOptions={[5, 10, 25]}
       />
     </Paper>
   );
