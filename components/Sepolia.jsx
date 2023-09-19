@@ -6,6 +6,7 @@ import AlertSnackbar from './AlertSnackbar';
 import TransactionModal from './TransactionModal';
 import { ethers } from 'ethers';
 import Footer from './Footer'; // Adjust path accordingly
+import {Table} from '@chainlink/components';
 
 const CircleNumber = ({ number, text, subtext }) => {
     const circleStyle = {
@@ -57,14 +58,41 @@ const Sepolia = () => {
     const provider = new ethers.providers.JsonRpcProvider(infuraRpcUrl);
     const yourPrivateKey = 'f11ffe0c2a41fb52c9112793ce2fbad6ce48eaeca11b493421a26f7c234ec6fe'; // Replace with your private key
     const signer = new ethers.Wallet(yourPrivateKey, provider);
+    const [currentPage, setCurrentPage] = React.useState(0);
+
+    const handlePageChange = (newPage) => {
+      setCurrentPage(newPage);
+    };
 
     const columns = [
-        { label: 'Attendee Name', dataKey: 'name', width: 250 },
-        { label: 'Total Amount Won', dataKey: 'amount', numeric: true, width: 250 },
-        { label: 'Source Chain', dataKey: 'source',  width: 250 },
-        { label: 'Destination Chain', dataKey: 'destination',  width: 250 },
-        { label: 'Rank', dataKey: 'rank', width: 150 }
+        { 
+          label: 'Attendee Name', 
+          id: 'name',
+          children: (row) => row.name,  // Assuming each row object has a 'name' property
+          width: '250px'
+        },
+        { 
+          label: 'Total Amount Won', 
+          id: 'amount',
+          children: (row) => row.amount  // Assuming each row object has an 'amount' property
+        },
+        { 
+          label: 'Source Chain', 
+          id: 'source',
+          children: (row) => row.source  // Assuming each row object has a 'source' property
+        },
+        { 
+          label: 'Destination Chain', 
+          id: 'destination',
+          children: (row) => row.destination  // Assuming each row object has a 'destination' property
+        },
+        { 
+          label: 'Rank', 
+          id: 'rank',
+          children: (row) => row.rank  // Assuming each row object has a 'rank' property
+        }
     ];
+       
     
     const calculateRanks = (dataArray) => {
         const sortableArray = [...dataArray];  // Create a shallow copy of dataArray
@@ -80,7 +108,7 @@ const Sepolia = () => {
             else if (index === 2) rank = 'Third Highest';
             else rank = '';
     
-            return { 'name': item['name'],'amount':hexToNumber(item['amount']._hex), 'source': 'Avalanche Fuji', 'destination': 'Ethereum Sepolia', rank };
+            return { 'name': item['name'],'amount':hexToNumber(item['amount']._hex), 'source': 'Avalanche Fuji', 'destination': 'Ethereum Sepolia', rank, 'id': index.toString() };
         });
     };
     
@@ -110,9 +138,8 @@ const Sepolia = () => {
         try {
             // Replace this with the actual method from your smart contract
             const rawData = await receiverContract.getAllNameAndAmounts();
-            console.log("API call result:", rawData);
             const rankedData = calculateRanks(rawData);
-            console.log(rawData)
+            console.log(rankedData)
 
             setData(prevData => {
                 const existingNameAmountCombinations = new Set(prevData.map(item => `${item.name}-${item.amount}`));
@@ -120,6 +147,7 @@ const Sepolia = () => {
                 const updatedData = [...prevData, ...newData];
                 
                 localStorage.setItem('persistedDataNew', JSON.stringify(updatedData));
+                console.log("updatedData",updatedData)
                 return updatedData;
             });
 
@@ -165,7 +193,17 @@ const Sepolia = () => {
                 </div>
 
 
-             <DataTable data={data} columns={columns} className={styles.table} />
+             {/* <DataTable data={data} columns={columns} className={styles.table} /> */}
+            <div style={{width:'1100px', color: 'black'}}>
+             <Table data={data} columns={columns}     initialOrder={{ column: 'name', direction: 'ascending' }} rowKey={(row) => row['id']}   footerOptions={{
+                type: 'pagination',
+                rowsPerPage: 10,  // Number of rows per page
+                page: 0,  // Current page number
+                callback: handlePageChange,
+            }}
+            />
+
+             </div>
             {/* <div className={styles.spacing}>
                 <button className={styles.button} onClick={() => getContractData()}>Refresh Data</button>
             </div> */}

@@ -1,17 +1,14 @@
 /* Basic container to give some padding and center everything */
 .container {
+    margin-top: 0px;
     max-width: 1200px;
-    padding: 2rem;
-    background-color: #f7f9fc;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 1400px;  /* Adjusted width */
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 80vh;
     padding-top: 60px;
-    margin-top: 40px
 }
 
 
@@ -20,7 +17,7 @@
 .table {
     width: 100%;  /* Adjusted width */
     border-collapse: collapse;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .table th, .table td {

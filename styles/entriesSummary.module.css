@@ -1,0 +1,6 @@
+.container {
+    margin-block: var(--space-6x) 0;
+    text-align: center;
+    max-width: unset;
+    color: black;
+  }

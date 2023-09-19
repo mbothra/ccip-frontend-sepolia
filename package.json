@@ -10,22 +10,31 @@
     "marketplace": "npx create-web3-dapp marketplace"
   },
   "dependencies": {
+    "@chainlink/components": "^0.2.4",
     "@chainlink/design-system": "^0.2.3",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/montserrat": "^5.0.8",
     "@mui/material": "^5.14.5",
     "@rainbow-me/rainbowkit": "^0.12.4",
+    "@types/jest": "^29.5.5",
+    "@types/node": "^20.6.2",
+    "@types/react": "^18.2.22",
+    "@types/react-dom": "^18.2.7",
     "alchemy-sdk": "^2.6.2",
     "next": "13.1.2",
+    "next-transpile-modules": "^10.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-modal": "^3.16.1",
     "react-table": "^7.8.0",
     "react-virtuoso": "^4.5.0",
     "wagmi": "^0.12.6"
   },
   "devDependencies": {
     "eslint": "8.36.0",
-    "eslint-config-next": "13.2.4"
+    "eslint-config-next": "13.2.4",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.2.2"
   }
 }
