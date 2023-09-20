@@ -146,7 +146,7 @@ const Sepolia = () => {
                 const newData = rankedData.filter(item => !existingNameAmountCombinations.has(`${item.name}-${item.amount}`));
                 const updatedData = [...prevData, ...newData];
                 
-                localStorage.setItem('persistedDataNew', JSON.stringify(updatedData));
+                localStorage.setItem('persistedDataNew2', JSON.stringify(updatedData));
                 console.log("updatedData",updatedData)
                 return updatedData;
             });
@@ -159,7 +159,7 @@ const Sepolia = () => {
 
     useEffect(() => {
         // Load data from localStorage when the component mounts
-        const persistedData = localStorage.getItem('persistedDataNew');
+        const persistedData = localStorage.getItem('persistedDataNew2');
         if (persistedData) {
             setData(JSON.parse(persistedData));
         }
