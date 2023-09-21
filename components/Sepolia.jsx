@@ -87,9 +87,9 @@ const Sepolia = () => {
           children: (row) => row.destination  // Assuming each row object has a 'destination' property
         },
         { 
-          label: 'Rank', 
-          id: 'rank',
-          children: (row) => row.rank  // Assuming each row object has a 'rank' property
+          label: 'Tier', 
+          id: 'tier',
+          children: (row) => row.tier  // Assuming each row object has a 'rank' property
         }
     ];
        
@@ -97,22 +97,30 @@ const Sepolia = () => {
     const calculateRanks = (dataArray) => {
         const sortableArray = [...dataArray];  // Create a shallow copy of dataArray
     
-        return sortableArray.sort((a, b) => {
+        const sortedArray = sortableArray.sort((a, b) => {
             let b_amount = hexToNumber(b['amount']._hex);
             let a_amount = hexToNumber(a['amount']._hex);
-            return b_amount - a_amount
-        }).map((item, index) => {
-            let rank;
-            if (index === 0) rank = 'Highest';
-            else if (index === 1) rank = 'Second Highest';
-            else if (index === 2) rank = 'Third Highest';
-            else rank = '';
-    
-            return { 'name': item['name'],'amount':hexToNumber(item['amount']._hex), 'source': 'Avalanche Fuji', 'destination': 'Ethereum Sepolia', rank, 'id': index.toString() };
+            return b_amount - a_amount;
         });
-    };
     
+        return sortedArray.map((item, index) => {
+            let tier;
+            let amt = hexToNumber(item['amount']._hex); 
+            if (amt === 30 || amt === 27) tier = 'Tier 1';
+            else if (amt === 22 || amt === 11 || amt === 26) tier = 'Tier 2';
+            else tier = 'Tier 3';
     
+            return { 
+                'name': item['name'],
+                'amount': amt, 
+                'source': 'Avalanche Fuji', 
+                'destination': 'Ethereum Sepolia', 
+                'tier':tier, 
+                'id': index.toString() 
+            };
+        });
+    };    
+
     
     async function getWeb3Account() {
         const account = await signer.getAddress();
@@ -144,9 +152,9 @@ const Sepolia = () => {
             setData(prevData => {
                 const existingNameAmountCombinations = new Set(prevData.map(item => `${item.name}-${item.amount}`));
                 const newData = rankedData.filter(item => !existingNameAmountCombinations.has(`${item.name}-${item.amount}`));
-                const updatedData = [...prevData, ...newData];
+                const updatedData = [...newData, ...prevData]; // Prepend new data
                 
-                localStorage.setItem('persistedDataNew2', JSON.stringify(updatedData));
+                localStorage.setItem('persistedDataNew3', JSON.stringify(updatedData));
                 console.log("updatedData",updatedData)
                 return updatedData;
             });
@@ -159,7 +167,7 @@ const Sepolia = () => {
 
     useEffect(() => {
         // Load data from localStorage when the component mounts
-        const persistedData = localStorage.getItem('persistedDataNew2');
+        const persistedData = localStorage.getItem('persistedDataNew3');
         if (persistedData) {
             setData(JSON.parse(persistedData));
         }
@@ -208,7 +216,6 @@ const Sepolia = () => {
                 <button className={styles.button} onClick={() => getContractData()}>Refresh Data</button>
             </div> */}
             <AlertSnackbar />
-            <TransactionModal />
         </div>
         </div>
     
