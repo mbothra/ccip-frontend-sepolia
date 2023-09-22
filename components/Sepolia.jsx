@@ -107,7 +107,7 @@ const Sepolia = () => {
             let tier;
             let amt = hexToNumber(item['amount']._hex); 
             if (amt === 30 || amt === 27) tier = 'Tier 1';
-            else if (amt === 22 || amt === 11 || amt === 26) tier = 'Tier 2';
+            else if (amt === 22 || amt === 21 || amt === 26) tier = 'Tier 2';
             else tier = 'Tier 3';
     
             return { 
