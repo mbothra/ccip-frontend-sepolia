@@ -1,4 +1,4 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { CustomButton } from "./CustomButton.jsx";
 import styles from "../../styles/Navbar.module.css";
 export default function Navbar() {
 	return (
@@ -9,7 +9,7 @@ export default function Navbar() {
 					src="/Chainlink.png"
 				></img>
 			</a>
-			<ConnectButton></ConnectButton>
+			<CustomButton></CustomButton>
 		</nav>
 	);
 }

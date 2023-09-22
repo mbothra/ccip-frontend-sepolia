@@ -28,3 +28,52 @@ a {
 	html {
 	}
 }
+
+/* Medium */
+@font-face {
+    font-family: 'Circular';
+    font-style: normal;
+    font-weight: 500;
+    src: url('/fonts/circular-medium.otf'); 
+    src: local(''), 
+         url('/fonts/circular-medium.otf') format('opentype'),
+}
+
+/* Bold */
+@font-face {
+    font-family: 'Circular-Bold';
+    font-style: normal;
+    font-weight: 700;
+    src: url('/fonts/circular-bold.otf'); 
+    src: local(''), 
+         url('/fonts/circular-bold.otf') format('opentype'),
+}
+
+/* Book */
+@font-face {
+    font-family: 'Circular-Book';
+    font-style: normal;
+    font-weight: 300;
+    src: url('/fonts/circular-book.otf'); 
+    src: local(''), 
+         url('/fonts/circular-book.otf') format('opentype'),
+}
+
+/* Black */
+@font-face {
+    font-family: 'Circular-Light';
+    font-style: normal;
+    font-weight: 900;
+    src: url('/fonts/Circular-light.ttf'); 
+    src: local(''), 
+         url('/fonts/Circular-light.ttf') format('truetype'),
+}
+
+@font-face {
+    font-family: 'Circular-Black';
+    font-style: normal;
+    font-weight: 900;
+    src: url('/fonts/circular-black.otf'); 
+    src: local(''), 
+         url('/fonts/circular-black.otf') format('opentype'),
+}

@@ -8,9 +8,12 @@
   }
   
   .alchemy_logo {
-	width: 6.5rem;
+	width: 5.7rem;
 	cursor: pointer;
 	/* background-color: #375bd2; */
   }
   
-  
+  .navbar .customConnectButton {
+	/* Your custom styles for the ConnectButton */
+	background-color: blue; /* Example style */
+  }
