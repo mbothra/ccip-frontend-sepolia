@@ -186,7 +186,7 @@ const Sepolia = () => {
         <div>
         <div className={styles.container}>
 
-            <h1>CCIP Leaderboard</h1>
+            <h1>CCIP Game leaderboard</h1>
             <p style={{color:'black'}}>Unveil your cross-chain score and collect your prize!</p>
 
             <div className="card" style={{display: 'flex', flexDirection: 'column', alignItems: 'center',marginBottom:'30px'}}>
