@@ -194,8 +194,8 @@ const Sepolia = () => {
 
 
                 <div style={{display:'flex', justifyContent: 'space-between', alignItems: 'center', width: '1086px', }}>
-                        <CircleNumber number={1} text="Long sleeve T-shirt" subtext="100 winners"/>
-                        <CircleNumber number={2} text="Regular T-shirt" subtext="200 winners"/>
+                        <CircleNumber number={1} text="T-shirt" subtext="100 winners"/>
+                        <CircleNumber number={2} text="Keychain" subtext="200 winners"/>
                         <CircleNumber number={3} text="Accessories" subtext="300 winners"/>
                         </div>           
                 </div>
