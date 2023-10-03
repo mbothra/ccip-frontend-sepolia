@@ -3,7 +3,7 @@
     margin-top: 0px;
     max-width: 1200px;
     border-radius: 8px;
-    width: 1400px;  /* Adjusted width */
+    width: 1140px;  /* Adjusted width */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,7 +15,7 @@
 
 /* Table styles */
 .table {
-    width: 100%;  /* Adjusted width */
+    width: 70%;  /* Adjusted width */
     border-collapse: collapse;
     margin-top: 1rem;
 }

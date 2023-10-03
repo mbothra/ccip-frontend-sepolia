@@ -67,29 +67,37 @@ const Sepolia = () => {
     const columns = [
         { 
           label: 'Attendee Name', 
-          id: 'name',
+          dataKey: 'name',
           children: (row) => row.name,  // Assuming each row object has a 'name' property
-          width: '250px'
+          width: '200px'
         },
         { 
           label: 'Total Amount Won', 
-          id: 'amount',
-          children: (row) => row.amount  // Assuming each row object has an 'amount' property
+          dataKey: 'amount',
+          children: (row) => row.amount,
+          width: '200px'
+          // Assuming each row object has an 'amount' property
         },
         { 
           label: 'Source Chain', 
-          id: 'source',
-          children: (row) => row.source  // Assuming each row object has a 'source' property
+          dataKey: 'source',
+          children: (row) => row.source,
+          width: '200px'
+          // Assuming each row object has a 'source' property
         },
         { 
           label: 'Destination Chain', 
-          id: 'destination',
-          children: (row) => row.destination  // Assuming each row object has a 'destination' property
+          dataKey: 'destination',
+          children: (row) => row.destination,
+          width: '200px'
+          // Assuming each row object has a 'destination' property
         },
         { 
           label: 'Tier', 
-          id: 'tier',
-          children: (row) => row.tier  // Assuming each row object has a 'rank' property
+          dataKey: 'tier',
+          children: (row) => row.tier,
+          width: '200px'
+          // Assuming each row object has a 'rank' property
         }
     ];
        
@@ -201,10 +209,10 @@ const Sepolia = () => {
                 </div>
 
 
-             {/* <DataTable data={data} columns={columns} className={styles.table} /> */}
+             <DataTable data={data} columns={columns} className={styles.table} />
             <div style={{width:'1100px', color: 'black'}}>
-             <Table data={data} columns={columns}     initialOrder={{ column: 'name', direction: 'ascending' }} rowKey={(row) => row['id']}
-            />
+             {/* <DataTable data={data} columns={columns}     } */}
+            {/* /> */}
 
              </div>
             {/* <div className={styles.spacing}>

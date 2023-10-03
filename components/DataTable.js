@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
+import TextField from '@mui/material/TextField'; // <-- Import the TextField component
 
 const DataTable = ({ data, columns, className }) => {
   const [page, setPage] = React.useState(0);
@@ -21,10 +22,33 @@ const DataTable = ({ data, columns, className }) => {
     setPage(0);
   };
 
-  const displayedData = data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  const [searchTerm, setSearchTerm] = React.useState('');
+
+  const handleChangeSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+    // Filter the data based on the search term
+    const filteredData = data.filter(row =>
+      columns.some(column =>
+        String(row[column.dataKey])
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
+      )
+    );
+
+  const displayedData = filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
     <Paper style={{ width: '100%', ...className }}>
+            <TextField
+        style={{ margin: '16px', width: '1100px' }}
+        variant="outlined"
+        label="Search"
+        value={searchTerm}
+        onChange={handleChangeSearch}
+      />
+
       <TableContainer>
         <Table sx={{ borderCollapse: 'separate', tableLayout: 'fixed' }}>
           <TableHead>
