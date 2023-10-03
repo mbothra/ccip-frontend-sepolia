@@ -54,14 +54,14 @@ const CircleNumber = ({ number, text, subtext }) => {
 
 const Sepolia = () => {
     const [data, setData] = useState([]);
-    const infuraRpcUrl = 'https://sepolia.infura.io/v3/84a22f268f104ea3b696699dfbc10a25'; // Replace with your Infura RPC URL
+    const infuraRpcUrl = 'https://eth-sepolia.g.alchemy.com/v2/demo'; // Replace with your Infura RPC URL
     const provider = new ethers.providers.JsonRpcProvider(infuraRpcUrl);
     const yourPrivateKey = 'f11ffe0c2a41fb52c9112793ce2fbad6ce48eaeca11b493421a26f7c234ec6fe'; // Replace with your private key
     const signer = new ethers.Wallet(yourPrivateKey, provider);
     const [currentPage, setCurrentPage] = React.useState(0);
 
     const handlePageChange = (newPage) => {
-      setCurrentPage(newPage);
+      setCurrentPage(newPage+1);
     };
 
     const columns = [
@@ -203,12 +203,7 @@ const Sepolia = () => {
 
              {/* <DataTable data={data} columns={columns} className={styles.table} /> */}
             <div style={{width:'1100px', color: 'black'}}>
-             <Table data={data} columns={columns}     initialOrder={{ column: 'name', direction: 'ascending' }} rowKey={(row) => row['id']}   footerOptions={{
-                type: 'pagination',
-                rowsPerPage: 10,  // Number of rows per page
-                page: 0,  // Current page number
-                callback: handlePageChange,
-            }}
+             <Table data={data} columns={columns}     initialOrder={{ column: 'name', direction: 'ascending' }} rowKey={(row) => row['id']}
             />
 
              </div>
